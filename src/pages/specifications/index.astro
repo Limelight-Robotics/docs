@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import { groupByCategory } from '../../utils/content';
+
+const specifications = await getCollection('specifications');
+const specsByCategory = groupByCategory(specifications.map(spec => ({
+  title: spec.data.title,
+  href: `/specifications/${spec.slug}`,
+  description: spec.data.description,
+  category: spec.data.category,
+  order: spec.data.order,
+})));
+---
+
+<Layout title="Specifications - Limelight Robotics Internal Docs">
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    
+    <div class="flex-1 flex">
+      <Sidebar />
+      
+      <main class="flex-1 px-6 py-8 lg:px-8">
+        <div class="max-w-4xl">
+          <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-100 mb-4">Specifications</h1>
+            <p class="text-lg text-gray-300">
+              Technical specifications, standards, and requirements for Limelight Robotics projects and operations.
+            </p>
+          </div>
+
+          <div class="space-y-8">
+            {Object.entries(specsByCategory).map(([category, categorySpecs]) => (
+              <section>
+                <h2 class="text-2xl font-semibold text-gray-100 mb-4 border-b border-gray-700 pb-2">
+                  {category}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                  {categorySpecs
+                    .sort((a, b) => (a.order || 999) - (b.order || 999))
+                    .map((spec) => (
+                    <a 
+                      href={spec.href}
+                      class="block p-4 sm:p-6 bg-gray-800 rounded-lg border border-gray-700 hover:border-lime-400 hover:shadow-md transition-all w-full"
+                    >
+                      <div class="flex flex-col space-y-3 w-full">
+                        <h3 class="text-lg font-semibold text-gray-100 leading-tight">
+                          {spec.title}
+                        </h3>
+                        {spec.description && (
+                          <p class="text-gray-300 text-sm leading-relaxed">
+                            {spec.description}
+                          </p>
+                        )}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </div>
+      </main>
+    </div>
+    
+    <Footer />
+  </div>
+</Layout>
