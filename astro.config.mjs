@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  base: '/limelight-robotics.github.io/docs/',
+  base: '/docs/',
   vite: {
     plugins: [tailwindcss()]
   }
