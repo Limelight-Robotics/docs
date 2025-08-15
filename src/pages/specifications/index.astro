@@ -9,7 +9,7 @@ import { groupByCategory } from '../../utils/content';
 const specifications = await getCollection('specifications');
 const specsByCategory = groupByCategory(specifications.map(spec => ({
   title: spec.data.title,
-  href: `/specifications/${spec.slug}`,
+  href: `${Astro.base}/specifications/${spec.slug}`,
   description: spec.data.description,
   category: spec.data.category,
   order: spec.data.order,

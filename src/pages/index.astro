@@ -15,7 +15,7 @@ import Footer from '../components/Footer.astro';
           <div class="text-center">
             <div class="flex justify-center mb-6 sm:mb-8">
               <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center shadow-lg">
-                <img src="/docs/logo.png" alt="Limelight Robotics Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-2xl" />
+                <img src={`${Astro.base}/logo.png`} alt="Limelight Robotics Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-2xl" />
               </div>
             </div>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-100 mb-4 sm:mb-6 px-4">
@@ -26,7 +26,7 @@ import Footer from '../components/Footer.astro';
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
               <a 
-                href="/docs" 
+                href={`${Astro.base}/docs`} 
                 class="bg-gray-700 text-lime-400 px-6 sm:px-8 py-3 rounded-lg border-2 border-lime-400 hover:bg-gray-600 transition-colors font-semibold text-center"
               >
                 Browse Documentation
@@ -54,7 +54,7 @@ import Footer from '../components/Footer.astro';
               </div>
               <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Documentation</h3>
               <p class="text-gray-300 text-sm mb-3 sm:mb-4">Documentation on the process as required</p>
-              <a href="/docs" class="text-blue-400 hover:text-blue-300 font-medium text-sm">
+              <a href={`${Astro.base}/docs`} class="text-blue-400 hover:text-blue-300 font-medium text-sm">
                 Browse Docs →
               </a>
             </div>
@@ -68,7 +68,7 @@ import Footer from '../components/Footer.astro';
               </div>
               <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Development Setup</h3>
               <p class="text-gray-300 text-sm mb-3 sm:mb-4">Instructions for setting up your development environment</p>
-              <a href="/guides/development-setup" class="text-green-400 hover:text-green-300 font-medium text-sm">
+              <a href={`${Astro.base}/guides/development-setup`} class="text-green-400 hover:text-green-300 font-medium text-sm">
                 View Guide →
               </a>
             </div>
@@ -82,7 +82,7 @@ import Footer from '../components/Footer.astro';
               </div>
               <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Specifications</h3>
               <p class="text-gray-300 text-sm mb-3 sm:mb-4">Robot specs, competition rules, and technical standards</p>
-              <a href="/specifications" class="text-purple-400 hover:text-purple-300 font-medium text-sm">
+              <a href={`${Astro.base}/specifications`} class="text-purple-400 hover:text-purple-300 font-medium text-sm">
                 View Specs →
               </a>
             </div>
@@ -96,7 +96,7 @@ import Footer from '../components/Footer.astro';
               </div>
               <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Resources</h3>
               <p class="text-gray-300 text-sm mb-3 sm:mb-4">Useful links for FTC and Limelight Robotics</p>
-              <a href="/resources" class="text-orange-400 hover:text-orange-300 font-medium text-sm">
+              <a href={`${Astro.base}/resources`} class="text-orange-400 hover:text-orange-300 font-medium text-sm">
                 View Resources →
               </a>
             </div>

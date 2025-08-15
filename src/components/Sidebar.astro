@@ -20,7 +20,7 @@ const docsByCategory = sortedDocs.reduce((acc, doc) => {
   if (!acc[category]) acc[category] = [];
   acc[category].push({
     title: doc.data.title,
-    href: `/docs/${doc.slug}`,
+  href: `${Astro.base}/docs/${doc.slug}`,
     category: category
   });
   return acc;
@@ -49,7 +49,7 @@ const specsByCategory = sortedSpecs.reduce((acc, spec) => {
   if (!acc[category]) acc[category] = [];
   acc[category].push({
     title: spec.data.title,
-    href: `/specifications/${spec.slug}`,
+  href: `${Astro.base}/specifications/${spec.slug}`,
     category: category,
     status: spec.data.status
   });
@@ -60,11 +60,11 @@ const specsByCategory = sortedSpecs.reduce((acc, spec) => {
 const quickLinks = [
   sortedGuides.find(g => g.slug === 'development-setup') && {
     title: sortedGuides.find(g => g.slug === 'development-setup')!.data.title,
-    href: `/guides/development-setup`
+  href: `${Astro.base}/guides/development-setup`
   },
   sortedDocs.find(d => d.slug === 'documentation-process') && {
     title: sortedDocs.find(d => d.slug === 'documentation-process')!.data.title,
-    href: `/docs/documentation-process`
+  href: `${Astro.base}/docs/documentation-process`
   }
 ].filter(Boolean);
 ---
@@ -139,7 +139,7 @@ const quickLinks = [
             {sortedGuides.map((guide) => (
               <li>
                 <a 
-                  href={`/guides/${guide.slug}`} 
+                  href={`${Astro.base}/guides/${guide.slug}`} 
                   class="text-sm text-gray-300 hover:text-lime-400 transition-colors block group py-1"
                 >
                   <div class="flex items-center justify-between">
@@ -213,7 +213,7 @@ const quickLinks = [
         </h3>
         <ul class="space-y-1 sm:space-y-2">
           <li>
-            <a href="/resources" class="text-sm text-gray-300 hover:text-lime-400 transition-colors block py-1">
+            <a href={`${Astro.base}/resources`} class="text-sm text-gray-300 hover:text-lime-400 transition-colors block py-1">
               Resource Center
             </a>
           </li>

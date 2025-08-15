@@ -16,8 +16,8 @@ const { Content } = await spec.render();
 
 // Generate breadcrumbs
 const breadcrumbs = [
-  { title: 'Home', href: '/' },
-  { title: 'Specifications', href: '/specifications' },
+  { title: 'Home', href: `${Astro.base}/` },
+  { title: 'Specifications', href: `${Astro.base}/specifications` },
   { title: spec.data.title },
 ];
 ---
