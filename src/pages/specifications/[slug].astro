@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+export async function getStaticPaths() {
+  const specifications = await getCollection('specifications');
+  return specifications.map((spec) => ({
+    params: { slug: spec.slug },
+    props: spec,
+  }));
+}
+
+const { slug } = Astro.params;
+const spec = Astro.props;
+const { Content } = await spec.render();
+
+// Generate breadcrumbs
+const breadcrumbs = [
+  { title: 'Home', href: '/' },
+  { title: 'Specifications', href: '/specifications' },
+  { title: spec.data.title },
+];
+---
+
+<DocsLayout title={`${spec.data.title} - Specifications`} description={spec.data.description}>
+  <!-- Breadcrumbs -->
+  <nav class="mb-6" aria-label="Breadcrumb">
+    <ol class="flex items-center space-x-2 text-sm text-gray-400">
+      {breadcrumbs.map((crumb, index) => (
+        <li class="flex items-center">
+          {index > 0 && (
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+          )}
+          {crumb.href ? (
+            <a href={crumb.href} class="hover:text-gray-200 transition-colors">
+              {crumb.title}
+            </a>
+          ) : (
+            <span class="text-gray-100 font-medium">{crumb.title}</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-100 mb-4">{spec.data.title}</h1>
+    
+    {spec.data.description && (
+      <p class="text-lg text-gray-300 mb-4">{spec.data.description}</p>
+    )}
+
+    {/* Metadata */}
+    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-400 border-t border-gray-700 pt-4">
+      {spec.data.lastUpdated && (
+        <span>Last updated: {new Date(spec.data.lastUpdated).toLocaleDateString()}</span>
+      )}
+      {spec.data.author && (
+        <span>Author: {spec.data.author}</span>
+      )}
+      {spec.data.category && (
+        <span>Category: {spec.data.category}</span>
+      )}
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="prose prose-lg max-w-none">
+    <Content />
+  </div>
+
+  <!-- Navigation Footer -->
+  <footer class="mt-12 pt-8 border-t border-gray-700">
+    <div class="flex justify-between items-center">
+      <a 
+        href="/specifications" 
+        class="inline-flex items-center text-lime-400 hover:text-lime-300 font-medium"
+      >
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Specifications
+      </a>
+      
+      {spec.data.tags && spec.data.tags.length > 0 && (
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-gray-400">Tags:</span>
+          {spec.data.tags.map((tag) => (
+            <span class="px-2 py-1 text-xs bg-gray-700 text-gray-200 rounded-md">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </footer>
+</DocsLayout>

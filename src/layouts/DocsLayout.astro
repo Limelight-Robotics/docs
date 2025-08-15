@@ -1,0 +1,31 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    
+    <div class="flex-1 flex relative">
+      <Sidebar />
+      
+      <main class="flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 max-w-4xl ml-0 lg:ml-64">
+        <article class="prose prose-sm sm:prose prose-slate max-w-none dark:prose-invert">
+          <slot />
+        </article>
+      </main>
+    </div>
+    
+    <Footer />
+  </div>
+</Layout>

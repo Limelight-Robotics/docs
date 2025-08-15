@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await guide.render();
+---
+
+<DocsLayout title={guide.data.title} description={guide.data.description}>
+  <!-- Breadcrumb -->
+  <nav class="mb-6 text-sm">
+    <ol class="flex items-center space-x-2 text-gray-400">
+      <li><a href="/" class="hover:text-gray-200">Home</a></li>
+      <li class="text-gray-600">/</li>
+      <li><a href="/guides" class="hover:text-gray-200">Guides</a></li>
+      <li class="text-gray-600">/</li>
+      <li class="text-gray-100">{guide.data.title}</li>
+    </ol>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-100 mb-4">{guide.data.title}</h1>
+    {guide.data.description && (
+      <p class="text-lg text-gray-300 mb-4">{guide.data.description}</p>
+    )}
+    
+    <!-- Metadata -->
+    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-400 border-b border-gray-700 pb-4">
+      {guide.data.difficulty && (
+        <span class={`px-2 py-1 rounded font-medium ${
+          guide.data.difficulty === 'beginner' ? 'bg-green-800 text-green-200' :
+          guide.data.difficulty === 'intermediate' ? 'bg-yellow-800 text-yellow-200' :
+          'bg-red-800 text-red-200'
+        }`}>
+          {guide.data.difficulty}
+        </span>
+      )}
+      {guide.data.estimatedTime && (
+        <span>
+          ⏱️ Estimated time: {guide.data.estimatedTime}
+        </span>
+      )}
+      {guide.data.lastUpdated && (
+        <span>
+          Last updated: {new Date(guide.data.lastUpdated).toLocaleDateString()}
+        </span>
+      )}
+      {guide.data.author && (
+        <span>
+          By: {guide.data.author}
+        </span>
+      )}
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="prose prose-lg max-w-none prose-headings:text-gray-100 prose-links:text-lime-400 prose-code:text-lime-300 prose-pre:bg-gray-800">
+    <Content />
+  </div>
+
+  <!-- Tags -->
+  {guide.data.tags && guide.data.tags.length > 0 && (
+    <footer class="mt-8 pt-8 border-t border-gray-700">
+      <div class="flex flex-wrap gap-2">
+        <span class="text-sm text-gray-400">Tags:</span>
+        {guide.data.tags.map((tag) => (
+          <span class="bg-gray-700 text-gray-200 px-2 py-1 rounded text-sm">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </footer>
+  )}
+</DocsLayout>

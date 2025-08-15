@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map((doc) => ({
+    params: { slug: doc.slug },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+const { Content } = await doc.render();
+---
+
+<DocsLayout title={doc.data.title} description={doc.data.description}>
+  <!-- Breadcrumb -->
+  <nav class="mb-6 text-sm">
+    <ol class="flex items-center space-x-2 text-gray-400">
+      <li><a href="/" class="hover:text-gray-200">Home</a></li>
+      <li class="text-gray-600">/</li>
+      <li><a href="/docs" class="hover:text-gray-200">Documentation</a></li>
+      <li class="text-gray-600">/</li>
+      <li class="text-gray-100">{doc.data.title}</li>
+    </ol>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-100 mb-4">{doc.data.title}</h1>
+    {doc.data.description && (
+      <p class="text-lg text-gray-300 mb-4">{doc.data.description}</p>
+    )}
+    
+    <!-- Metadata -->
+    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-400 border-b border-gray-700 pb-4">
+      {doc.data.category && (
+        <span class="bg-gray-700 text-gray-200 px-2 py-1 rounded">
+          {doc.data.category}
+        </span>
+      )}
+      {doc.data.lastUpdated && (
+        <span>
+          Last updated: {new Date(doc.data.lastUpdated).toLocaleDateString()}
+        </span>
+      )}
+      {doc.data.author && (
+        <span>
+          By: {doc.data.author}
+        </span>
+      )}
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="prose prose-lg max-w-none prose-headings:text-gray-100 prose-links:text-lime-400 prose-code:text-lime-300 prose-pre:bg-gray-800">
+    <Content />
+  </div>
+
+  <!-- Tags -->
+  {doc.data.tags && doc.data.tags.length > 0 && (
+    <footer class="mt-8 pt-8 border-t border-gray-700">
+      <div class="flex flex-wrap gap-2">
+        <span class="text-sm text-gray-400">Tags:</span>
+        {doc.data.tags.map((tag) => (
+          <span class="bg-gray-700 text-gray-200 px-2 py-1 rounded text-sm">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </footer>
+  )}
+</DocsLayout>

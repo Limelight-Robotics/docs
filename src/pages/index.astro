@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Limelight Robotics - Documentation Hub">
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    
+    <main class="flex-1">
+      <!-- Hero Section -->
+      <section class="bg-gradient-to-br from-gray-800 to-gray-900 py-12 sm:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <div class="flex justify-center mb-6 sm:mb-8">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center shadow-lg">
+                <img src="/logo.png" alt="Limelight Robotics Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-2xl" />
+              </div>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-100 mb-4 sm:mb-6 px-4">
+              Limelight Robotics
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
+              Internal documentation and specifications for Limelight Robotics team members. Your central hub for team knowledge, procedures, and technical resources.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+              <a 
+                href="/docs" 
+                class="bg-gray-700 text-lime-400 px-6 sm:px-8 py-3 rounded-lg border-2 border-lime-400 hover:bg-gray-600 transition-colors font-semibold text-center"
+              >
+                Browse Documentation
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Access Section -->
+      <section class="py-12 sm:py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-8 sm:mb-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-100 mb-4">Team Resources</h2>
+            <p class="text-gray-300">Quick access to essential team information</p>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Documentation -->
+            <div class="bg-gray-800 rounded-xl p-4 sm:p-6 hover:shadow-lg transition-shadow border border-gray-700">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-900 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Documentation</h3>
+              <p class="text-gray-300 text-sm mb-3 sm:mb-4">Documentation on the process as required</p>
+              <a href="/docs" class="text-blue-400 hover:text-blue-300 font-medium text-sm">
+                Browse Docs →
+              </a>
+            </div>
+
+            <!-- Guides -->
+            <div class="bg-gray-800 rounded-xl p-4 sm:p-6 hover:shadow-lg transition-shadow border border-gray-700">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-900 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+              <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Development Setup</h3>
+              <p class="text-gray-300 text-sm mb-3 sm:mb-4">Instructions for setting up your development environment</p>
+              <a href="/guides/development-setup" class="text-green-400 hover:text-green-300 font-medium text-sm">
+                View Guide →
+              </a>
+            </div>
+
+            <!-- Specifications -->
+            <div class="bg-gray-800 rounded-xl p-4 sm:p-6 hover:shadow-lg transition-shadow border border-gray-700">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-900 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+              </div>
+              <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Specifications</h3>
+              <p class="text-gray-300 text-sm mb-3 sm:mb-4">Robot specs, competition rules, and technical standards</p>
+              <a href="/specifications" class="text-purple-400 hover:text-purple-300 font-medium text-sm">
+                View Specs →
+              </a>
+            </div>
+
+            <!-- Resources -->
+            <div class="bg-gray-800 rounded-xl p-4 sm:p-6 hover:shadow-lg transition-shadow border border-gray-700 sm:col-span-2 lg:col-span-1">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-orange-900 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+              </div>
+              <h3 class="text-base sm:text-lg font-semibold text-gray-100 mb-2">Resources</h3>
+              <p class="text-gray-300 text-sm mb-3 sm:mb-4">Useful links for FTC and Limelight Robotics</p>
+              <a href="/resources" class="text-orange-400 hover:text-orange-300 font-medium text-sm">
+                View Resources →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <Footer />
+  </div>
+</Layout>

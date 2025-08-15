@@ -1,0 +1,224 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all content dynamically
+const docs = await getCollection('docs');
+const guides = await getCollection('guides');
+const specifications = await getCollection('specifications');
+
+// Sort docs by order field or title
+const sortedDocs = docs.sort((a, b) => {
+  const orderA = a.data.order || 999;
+  const orderB = b.data.order || 999;
+  if (orderA !== orderB) return orderA - orderB;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Group docs by category
+const docsByCategory = sortedDocs.reduce((acc, doc) => {
+  const category = doc.data.category || 'General';
+  if (!acc[category]) acc[category] = [];
+  acc[category].push({
+    title: doc.data.title,
+    href: `/docs/${doc.slug}`,
+    category: category
+  });
+  return acc;
+}, {} as Record<string, Array<{title: string, href: string, category: string}>>);
+
+// Sort guides by difficulty and title
+const sortedGuides = guides.sort((a, b) => {
+  const difficultyOrder = { 'beginner': 1, 'intermediate': 2, 'advanced': 3 };
+  const diffA = difficultyOrder[a.data.difficulty as keyof typeof difficultyOrder] || 999;
+  const diffB = difficultyOrder[b.data.difficulty as keyof typeof difficultyOrder] || 999;
+  if (diffA !== diffB) return diffA - diffB;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Sort specifications by order or title
+const sortedSpecs = specifications.sort((a, b) => {
+  const orderA = a.data.order || 999;
+  const orderB = b.data.order || 999;
+  if (orderA !== orderB) return orderA - orderB;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Group specifications by category
+const specsByCategory = sortedSpecs.reduce((acc, spec) => {
+  const category = spec.data.category || 'General';
+  if (!acc[category]) acc[category] = [];
+  acc[category].push({
+    title: spec.data.title,
+    href: `/specifications/${spec.slug}`,
+    category: category,
+    status: spec.data.status
+  });
+  return acc;
+}, {} as Record<string, Array<{title: string, href: string, category: string, status?: string}>>);
+
+// Quick links - Development Setup Guide and Docs Getting Started
+const quickLinks = [
+  sortedGuides.find(g => g.slug === 'development-setup') && {
+    title: sortedGuides.find(g => g.slug === 'development-setup')!.data.title,
+    href: `/guides/development-setup`
+  },
+  sortedDocs.find(d => d.slug === 'documentation-process') && {
+    title: sortedDocs.find(d => d.slug === 'documentation-process')!.data.title,
+    href: `/docs/documentation-process`
+  }
+].filter(Boolean);
+---
+
+<!-- Sidebar - hidden on mobile, visible on desktop -->
+<aside 
+  class="hidden lg:flex flex-col fixed lg:static top-0 left-0 min-h-screen w-64 bg-gray-800 border-r border-gray-700 overflow-y-auto z-50"
+>
+  <div class="p-4 sm:p-6 flex-1 flex flex-col">
+    <nav class="space-y-4 sm:space-y-6 flex-1">
+      <!-- Quick Start -->
+      {quickLinks.length > 0 && (
+        <div>
+          <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-2 sm:mb-3">
+            Quick Start
+          </h3>
+          <ul class="space-y-1 sm:space-y-2">
+            {quickLinks.map((link) => (
+              link && (
+                <li>
+                  <a href={link.href} class="text-sm text-gray-300 hover:text-lime-400 transition-colors block py-1">
+                    {link.title}
+                  </a>
+                </li>
+              )
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Documentation -->
+      {Object.keys(docsByCategory).length > 0 && (
+        <div>
+          <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-2 sm:mb-3">
+            Documentation
+          </h3>
+          <ul class="space-y-1 sm:space-y-2">
+            {Object.entries(docsByCategory).map(([category, categoryDocs]) => (
+              <li>
+                {Object.keys(docsByCategory).length > 1 && (
+                  <div class="mb-1 sm:mb-2">
+                    <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      {category}
+                    </span>
+                  </div>
+                )}
+                <ul class={Object.keys(docsByCategory).length > 1 ? "pl-2 space-y-1" : "space-y-1"}>
+                  {categoryDocs.map((doc) => (
+                    <li>
+                      <a 
+                        href={doc.href} 
+                        class="text-sm text-gray-300 hover:text-lime-400 transition-colors block py-1"
+                      >
+                        {doc.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Guides -->
+      {sortedGuides.length > 0 && (
+        <div>
+          <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-2 sm:mb-3">
+            Guides
+          </h3>
+          <ul class="space-y-1 sm:space-y-2">
+            {sortedGuides.map((guide) => (
+              <li>
+                <a 
+                  href={`/guides/${guide.slug}`} 
+                  class="text-sm text-gray-300 hover:text-lime-400 transition-colors block group py-1"
+                >
+                  <div class="flex items-center justify-between">
+                    <span>{guide.data.title}</span>
+                    <span class="text-xs text-gray-500 capitalize">
+                      {guide.data.difficulty}
+                    </span>
+                  </div>
+                  {guide.data.estimatedTime && (
+                    <div class="text-xs text-gray-500 mt-1">
+                      {guide.data.estimatedTime}
+                    </div>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Specifications -->
+      {Object.keys(specsByCategory).length > 0 && (
+        <div>
+          <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-2 sm:mb-3">
+            Specifications
+          </h3>
+          <ul class="space-y-1 sm:space-y-2">
+            {Object.entries(specsByCategory).map(([category, categorySpecs]) => (
+              <li>
+                {Object.keys(specsByCategory).length > 1 && (
+                  <div class="mb-1 sm:mb-2">
+                    <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      {category}
+                    </span>
+                  </div>
+                )}
+                <ul class={Object.keys(specsByCategory).length > 1 ? "pl-2 space-y-1" : "space-y-1"}>
+                  {categorySpecs.map((spec) => (
+                    <li>
+                      <a 
+                        href={spec.href} 
+                        class="text-sm text-gray-300 hover:text-lime-400 transition-colors block group py-1"
+                      >
+                        <div class="flex items-center justify-between">
+                          <span>{spec.title}</span>
+                          {spec.status && (
+                            <span class={`text-xs px-1.5 py-0.5 rounded ${
+                              spec.status === 'active' ? 'bg-green-800 text-green-200' :
+                              spec.status === 'draft' ? 'bg-yellow-800 text-yellow-200' :
+                              spec.status === 'deprecated' ? 'bg-red-800 text-red-200' :
+                              'bg-gray-700 text-gray-300'
+                            }`}>
+                              {spec.status}
+                            </span>
+                          )}
+                        </div>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-2 sm:mb-3">
+          Resources
+        </h3>
+        <ul class="space-y-1 sm:space-y-2">
+          <li>
+            <a href="/resources" class="text-sm text-gray-300 hover:text-lime-400 transition-colors block py-1">
+              Resource Center
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</aside>

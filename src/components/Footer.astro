@@ -1,0 +1,68 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-800 border-t border-gray-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- About -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-4">
+          About Limelight Robotics
+        </h3>
+        <p class="text-sm text-gray-300">
+          A teen robotics club dedicated to innovation, learning, and competitive excellence in robotics and engineering.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-4">
+          Quick Links
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/docs/documentation-process" class="text-sm text-gray-300 hover:text-lime-400 transition-colors">
+              Documentation Process Guide
+            </a>
+          </li>
+          <li>
+            <a href="/guides/development-setup" class="text-sm text-gray-300 hover:text-lime-400 transition-colors">
+              Development Setup
+            </a>
+          </li>
+          <li>
+            <a href="/specifications" class="text-sm text-gray-300 hover:text-lime-400 transition-colors">
+              Latest Specifications
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-100 uppercase tracking-wider mb-4">
+          Resources
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="https://github.com/Limelight-Robotics/docs" target="_blank" class="text-sm text-gray-300 hover:text-lime-400 transition-colors">
+              Website Code
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/Limelight-Robotics/ftc-decode" target="_blank" class="text-sm text-gray-300 hover:text-lime-400 transition-colors">
+              Robot Code
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-8 border-t border-gray-700">
+      <p class="text-center text-sm text-gray-400">
+        &copy; {currentYear} Limelight Robotics. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
