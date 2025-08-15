@@ -2,7 +2,7 @@
 title: "Setting Up Your Development Environment"
 description: "A comprehensive guide to setting up your computer for robotics development with Limelight Robotics."
 difficulty: "beginner"
-estimatedTime: "1 hour"
+estimatedTime: "~1 hour"
 tags: ["setup", "development", "software", "tools"]
 lastUpdated: 2025-08-15
 author: "Zander Lewis"
@@ -47,32 +47,8 @@ git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
 ```
 
-### 2. Additional Development Tools
-
-#### Java Development Kit (JDK)
-WPILib includes JDK, but you may want standalone installation:
-```bash
-# Windows (using Chocolatey)
-choco install openjdk11
-
-# macOS (using Homebrew)
-brew install openjdk@11
-
-# Linux
-sudo apt install openjdk-11-jdk
-```
-
-#### Python (for utilities and scripts)
-```bash
-# Windows
-# Download from python.org or use Microsoft Store
-
-# macOS
-brew install python3
-
-# Linux
-sudo apt install python3 python3-pip
-```
+### IntelliJ / Android Studio
+1. Download and install [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) or [Android Studio](https://developer.android.com/studio).
 
 ## Team-Specific Setup
 
@@ -95,3 +71,6 @@ git clone https://github.com/Limelight-Robotics/docs.git
 #### Discord
 1. Download Discord desktop app
 2. Join Limelight Robotics server
+
+#### Email
+1. Email [info@ashevillerobotics.org](mailto:info@ashevillerobotics.org)
