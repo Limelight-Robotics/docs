@@ -18,6 +18,13 @@ const { title, description = "Limelight Robotics - Internal Documentation Hub" }
     <link rel="icon" type="image/svg+xml" href={`/docs/favicon.svg`} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <!-- Social Media Preview -->
+    <meta property="og:image" content="/docs/banner.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/docs/banner.png" />
   </head>
   <body class="bg-gray-900 text-gray-100 antialiased">
     <slot />
