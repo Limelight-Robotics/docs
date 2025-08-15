@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  background-color: red; 
+}
+
 /* Mobile-first responsive improvements */
 html {
   font-size: 16px;
